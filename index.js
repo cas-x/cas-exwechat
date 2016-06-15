@@ -19,7 +19,6 @@ app.post('/cas/callback', function (req, res) {
     return res.sendStatus(403);
   }
 
-  const user = data.value;
   console.log('receve event', data);
   switch (data.type) {
     case 'user.update':
