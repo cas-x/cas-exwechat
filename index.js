@@ -1,3 +1,13 @@
+/**
+* @Author: BingWu Yang (https://github.com/detailyang) <detailyang>
+* @Date:   2016-06-15T17:46:26+08:00
+* @Email:  detailyang@gmail.com
+* @Last modified by:   detailyang
+* @Last modified time: 2016-07-14T09:35:27+08:00
+* @License: The MIT License (MIT)
+*/
+
+
 const async = require('async');
 const express = require('express');
 const app = express();
@@ -19,7 +29,6 @@ app.post('/cas/callback', function (req, res) {
     return res.sendStatus(403);
   }
 
-  console.log('receve event', data);
   switch (data.type) {
     case 'user.update':
       const is_delete = data.value.is_delete;
@@ -49,6 +58,7 @@ app.post('/cas/callback', function (req, res) {
       }
       break;
     case 'user.add':
+        const userid = `${data.value.username}${config.suffix}`;
         api.createUser({
           userid,
           name: data.value.realname,
@@ -97,7 +107,7 @@ app.post('/cas/callback', function (req, res) {
           };
         })(user))
       }
-      async.parallelLimit(fns, 4, () => {
+      async.parallelLimit(fns, 1, () => {
         console.log("sync user done");
       });
       break;
