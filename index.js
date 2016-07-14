@@ -3,7 +3,7 @@
 * @Date:   2016-06-15T17:46:26+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-14T09:35:27+08:00
+* @Last modified time: 2016-07-14T09:37:24+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -14,7 +14,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const config = require('./config');
 const API = require('wechat-enterprise-api');
-const api = new API(config.appid, config.appsecret);
 
 
 // 10mb for receive all user
@@ -22,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false, limit: '10mb' }));
 app.use(bodyParser.json({ limit: '10mb' }));
 
 app.post('/cas/callback', function (req, res) {
+  const api = new API(config.appid, config.appsecret);
   const data = req.body;
   const headers = req.headers;
   if (headers['authorization'] !== `oauth ${config.cas_identify}`) {
