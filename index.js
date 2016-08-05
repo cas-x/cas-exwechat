@@ -39,6 +39,7 @@ app.post('/cas/callback', function (req, res) {
           if (err) {
             console.log('delete user error ', err);
           }
+          console.log(`delete user ${data.value.username}`);
         });
       } else {
         api.createUser({
